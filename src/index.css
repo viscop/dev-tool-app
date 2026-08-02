@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+
+  --app-background: #1d2125;
+  --panel-background: #181c25;
+  --border-color: #3a4252;
+  --text-color: #e7eaf0;
+  --accent-color: #6096ff;
+}

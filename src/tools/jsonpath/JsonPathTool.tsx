@@ -15,6 +15,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Paper,
   Stack,
   TextField,
   Typography,
@@ -170,23 +171,36 @@ function JsonPathTool() {
         </Alert>
       )}
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div>
-          <h3 className="mb-2 font-medium">JSON Input</h3>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            md: "1fr 1fr",
+          },
+          gap: 2,
+        }}
+      >
+        <Paper variant="outlined" sx={{ padding: 2 }}>
+          <Typography variant="h6" component="h2" sx={{ marginBottom: 1 }}>
+            JSON Input
+          </Typography>
 
           <CodeEditor
             value={jsonInput}
             onChange={setJsonInput}
             language="json"
           />
-        </div>
+        </Paper>
 
-        <div>
-          <h3 className="mb-2 font-medium">Result</h3>
+        <Paper variant="outlined" sx={{ padding: 2 }}>
+          <Typography variant="h6" component="h2" sx={{ marginBottom: 1 }}>
+            Result
+          </Typography>
 
           <CodeEditor value={output} language="json" readOnly />
-        </div>
-      </div>
+        </Paper>
+      </Box>
     </Box>
   );
 }

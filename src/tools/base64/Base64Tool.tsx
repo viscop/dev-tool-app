@@ -1,84 +1,90 @@
 import { useState } from "react";
+
+import { Alert, Box, Button, Paper, Stack, Typography } from "@mui/material";
+
 import { decodeBase64, encodeBase64 } from "./base64";
 import CodeEditor from "../../components/CodeEditor";
 
 function Base64Tool() {
-    const [input, setInput] = useState("");
-    const [output, setOutput] = useState("");
-    const [error, setError] = useState("");
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
+  const [error, setError] = useState("");
 
-    function handleEncode(value: string) {
-        setOutput(encodeBase64(value));
-        setError("");
+  function handleEncode(value: string) {
+    setOutput(encodeBase64(value));
+    setError("");
+  }
+
+  function handleDecode(value: string) {
+    try {
+      setOutput(decodeBase64(value));
+      setError("");
+    } catch {
+      setOutput("");
+      setError("Invalid Base64 input");
     }
+  }
 
-    function handleDecode(value: string) {
-        try {
-            setOutput(decodeBase64(value));
-            setError("");
-        } catch {
-            setOutput("");
-            setError("Invalid Base64 input");
-        }
-    }
+  function handleClear() {
+    setInput("");
+    setOutput("");
+    setError("");
+  }
 
-    function handleClear() {
-        setInput("");
-        setOutput("");
-        setError("");
-    }
+  return (
+    <Box component="section">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Base64 Encode / Decode
+      </Typography>
 
-    return (
-        <section>
-            <h2>Base64 Encode / Decode</h2>
+      <Stack direction="row" spacing={1} sx={{ marginBottom: 3 }}>
+        <Button variant="contained" onClick={() => handleEncode(input)}>
+          Encode
+        </Button>
 
-            <div className="mb-4 flex gap-2">
-                <button
-                    className="rounded border px-3 py-2"
-                    onClick={() => handleEncode(input)}
-                >
-                    Encode
-                </button>
+        <Button variant="outlined" onClick={() => handleDecode(input)}>
+          Decode
+        </Button>
 
-                <button
-                    className="rounded border px-3 py-2"
-                    onClick={() => handleDecode(input)}
-                >
-                    Decode
-                </button>
+        <Button color="inherit" onClick={handleClear}>
+          Clear
+        </Button>
+      </Stack>
 
-                <button
-                    className="rounded border px-3 py-2"
-                    onClick={handleClear}
-                >
-                    Clear
-                </button>
-            </div>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            md: "1fr 1fr",
+          },
+          gap: 2,
+        }}
+      >
+        <Paper variant="outlined" sx={{ padding: 2 }}>
+          <Typography variant="h6" component="h2" sx={{ marginBottom: 1 }}>
+            Input
+          </Typography>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                    <h3 className="mb-2 font-medium">Input</h3>
+          <CodeEditor value={input} onChange={setInput} />
+        </Paper>
 
-                    <CodeEditor
-                        value={input}
-                        onChange={setInput}
-                    />
-                </div>
+        <Paper variant="outlined" sx={{ padding: 2 }}>
+          <Typography variant="h6" component="h2" sx={{ marginBottom: 1 }}>
+            Output
+          </Typography>
 
-                <div>
-                    <h3 className="mb-2 font-medium">Output</h3>
+          <CodeEditor value={output} readOnly />
+        </Paper>
+      </Box>
 
-                    <CodeEditor
-                        value={output}
-                        readOnly
-                    />
-                </div>
-            </div>
-
-            {error && <p>{error}</p>}
-
-        </section>
-    );
+      {error && (
+        <Alert severity="error" sx={{ marginTop: 2 }}>
+          {error}
+        </Alert>
+      )}
+    </Box>
+  );
 }
 
 export default Base64Tool;

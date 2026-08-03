@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box";
 import Editor from "@monaco-editor/react";
 
 type CodeEditorProps = {
@@ -18,7 +19,17 @@ function CodeEditor({
   }
 
   return (
-    <div className="h-60 min-h-40 resize-y overflow-hidden border">
+    <Box
+      sx={{
+        height: 240,
+        minHeight: 160,
+        resize: "vertical",
+        overflow: "hidden",
+        border: 1,
+        borderColor: "divider",
+        borderRadius: 0.5,
+      }}
+    >
       <Editor
         theme="vs-dark"
         language={language}
@@ -31,7 +42,7 @@ function CodeEditor({
           automaticLayout: true,
         }}
       />
-    </div>
+    </Box>
   );
 }
 

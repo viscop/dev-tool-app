@@ -73,6 +73,12 @@ function JsonPathTool() {
     }
   }
 
+  function handleJsonInputChange(newValue: string) {
+    setJsonInput(newValue);
+
+    runQuery(newValue, query, selectedEngine);
+  }
+
   function handleEngineChange(event: SelectChangeEvent) {
     const engineId = event.target.value;
 
@@ -94,10 +100,6 @@ function JsonPathTool() {
     setQuery(newQuery);
 
     runQuery(jsonInput, newQuery, selectedEngine);
-  }
-
-  function handleRun() {
-    runQuery(jsonInput, query, selectedEngine);
   }
 
   return (
@@ -162,19 +164,20 @@ function JsonPathTool() {
           value={query}
           onChange={handleQueryChange}
           fullWidth
-        />
-
-        <Button
-          size="small"
-          variant="contained"
-          onClick={handleRun}
-          sx={{
-            minWidth: 120,
-            height: 40,
+          slotProps={{
+            htmlInput: {
+              spellCheck: false,
+            },
           }}
-        >
-          Run Query
-        </Button>
+          sx={{
+            "& .MuiInputBase-input": {
+              fontFamily: '"Cascadia Code", Consolas, "Courier New", monospace',
+              fontSize: "0.95rem",
+              letterSpacing: "0.01em",
+              fontVariantLigatures: "none",
+            },
+          }}
+        />
       </Stack>
 
       {error && (
@@ -236,7 +239,7 @@ function JsonPathTool() {
 
           <CodeEditor
             value={jsonInput}
-            onChange={setJsonInput}
+            onChange={handleJsonInputChange}
             language="json"
           />
         </Paper>

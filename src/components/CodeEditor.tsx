@@ -1,5 +1,5 @@
-import Box from "@mui/material/Box";
 import Editor from "@monaco-editor/react";
+import Box from "@mui/material/Box";
 
 type CodeEditorProps = {
   value: string;
@@ -21,23 +21,26 @@ function CodeEditor({
   return (
     <Box
       sx={{
-        height: 240,
-        minHeight: 160,
-        resize: "vertical",
+        flex: 1,
+        minHeight: 0,
+        width: "100%",
         overflow: "hidden",
         border: 1,
         borderColor: "divider",
-        borderRadius: 0.5,
+        borderRadius: 1,
       }}
     >
       <Editor
+        height="100%"
         theme="vs-dark"
         language={language}
         value={value}
         onChange={handleChange}
         options={{
           readOnly,
-          minimap: { enabled: false },
+          minimap: {
+            enabled: false,
+          },
           wordWrap: "on",
           automaticLayout: true,
         }}

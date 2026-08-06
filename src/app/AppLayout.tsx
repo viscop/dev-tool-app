@@ -37,7 +37,8 @@ function AppLayout() {
     <Box
       sx={{
         display: "flex",
-        minHeight: "100vh",
+        height: "100dvh",
+        overflow: "hidden",
       }}
     >
       <AppBar
@@ -97,12 +98,24 @@ function AppLayout() {
         sx={{
           flexGrow: 1,
           minWidth: 0,
+          height: "100dvh",
           padding: 3,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
         }}
       >
-        <Toolbar />
+        <Toolbar sx={{ flexShrink: 0 }} />
 
-        <Outlet />
+        <Box
+          sx={{
+            flex: 1,
+            minHeight: 0,
+            overflow: "hidden",
+          }}
+        >
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   );
